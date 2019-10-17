@@ -87,10 +87,7 @@ getDataFromEmailAtt<- function(results, i){
     attachment_file <- paste0(working_dir,email[['SenderName']],'.xlsx')
     email$Attachments(1)$SaveAsFile(attachment_file)
     
-    # Read each attachment and assign data into a variable (which is the filename)
-    # generated dynamically, 
-    df_name <- email[['SenderName']]
-    data <- readxl::read_excel(attachment_file, col_names = T) %>% 
+     data <- readxl::read_excel(attachment_file, col_names = T) %>% 
       rename(!!df_name := "Measurement")%>% 
       mutate(Hour = str_sub(as.character(Hour),11,nchar(as.character(Hour))))
   return(data)
